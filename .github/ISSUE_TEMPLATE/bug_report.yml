@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible problem without personal library data.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options: [Windows, macOS]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Next Up version
+      placeholder: 0.2.0
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Do not attach API keys or an unredacted library export.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual result
+    validations:
+      required: true
