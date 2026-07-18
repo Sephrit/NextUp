@@ -11,23 +11,29 @@ Here's what it looks like once you've added a few things:
 
 ## The good stuff
 
-A few things Next Up does that most watch trackers don't:
+Next Up is built around one question — *what do we actually watch tonight?* — and most of
+its best tricks come back to answering it:
 
-- **Sealed group ratings.** Watch something with other people and everyone rates it in
-  secret — nothing is revealed until the last person votes. So your 5 stars doesn't
-  quietly talk the room into agreeing. Honestly the best part of watching with someone.
+- **It tells you how long you've got left.** Every series and set shows the runtime still
+  standing between you and the finish line, right in the header — "2h 24m remaining." So
+  when it's already late you can pick something that fits the night instead of starting a
+  three-hour movie you're never going to make it through.
+- **It helps you decide what's next.** Pin anything as **Watching** or **Next Up** and it
+  floats to the top of your sidebar, so the thing you're mid-way through is always the
+  first thing you see — no scrolling, no "wait, where were we?"
+- **Watchable shows what you can actually put on right now.** Tick the services you pay
+  for and it filters your unwatched list down to what's streaming tonight — no opening
+  four apps to find out the one you wanted left Netflix last month.
+- **Sealed group ratings.** Watch with other people and everyone rates in secret —
+  nothing's revealed until the last person votes, so your 5 stars doesn't quietly talk
+  the room into agreeing. Honestly the best part of watching with someone.
 - **The Moviedex.** Your library is a collection to fill, not a spreadsheet. Every title
   you finish levels you up, finished sets get archived as trophies, and there are badges
   for milestones like your first rewatch or a ten-title marathon.
-- **Watchable tells you what you can actually put on tonight.** Tick the services you pay
-  for and it filters your unwatched list down to what's streaming right now — no opening
-  four apps to check.
 - **Add a whole show in one step.** Search a series and Next Up pulls in every announced
-  season and episode at once. You're checking off episodes in seconds, not typing them in.
+  season and episode at once — you're checking off episodes in seconds, not typing them in.
 - **Franchises stay together.** Group the Dune films — or the entire MCU — into one set,
   watch the progress bar fill, and retire it to the trophy shelf when it's done.
-- **Pick up where you dozed off.** The **＋30m** button logs partial progress, so a movie
-  you fell asleep in the middle of doesn't just sit there looking unwatched.
 - **It's yours and it's private.** No account, no server, no analytics. The whole library
   is a single file on your computer that you can export any time, and your Watchmode key
   lives in the OS keychain — never in the file, never in a backup.
