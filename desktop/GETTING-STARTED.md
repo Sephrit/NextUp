@@ -9,6 +9,29 @@ Here's what it looks like once you've added a few things:
 
 ![The Next Up library](docs/images/library.png)
 
+## The good stuff
+
+A few things Next Up does that most watch trackers don't:
+
+- **Sealed group ratings.** Watch something with other people and everyone rates it in
+  secret — nothing is revealed until the last person votes. So your 5 stars doesn't
+  quietly talk the room into agreeing. Honestly the best part of watching with someone.
+- **The Moviedex.** Your library is a collection to fill, not a spreadsheet. Every title
+  you finish levels you up, finished sets get archived as trophies, and there are badges
+  for milestones like your first rewatch or a ten-title marathon.
+- **Watchable tells you what you can actually put on tonight.** Tick the services you pay
+  for and it filters your unwatched list down to what's streaming right now — no opening
+  four apps to check.
+- **Add a whole show in one step.** Search a series and Next Up pulls in every announced
+  season and episode at once. You're checking off episodes in seconds, not typing them in.
+- **Franchises stay together.** Group the Dune films — or the entire MCU — into one set,
+  watch the progress bar fill, and retire it to the trophy shelf when it's done.
+- **Pick up where you dozed off.** The **＋30m** button logs partial progress, so a movie
+  you fell asleep in the middle of doesn't just sit there looking unwatched.
+- **It's yours and it's private.** No account, no server, no analytics. The whole library
+  is a single file on your computer that you can export any time, and your Watchmode key
+  lives in the OS keychain — never in the file, never in a backup.
+
 ## Installing
 
 ### Windows
