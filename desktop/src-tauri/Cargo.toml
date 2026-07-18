@@ -1,6 +1,6 @@
 [package]
 name = "next-up-desktop"
-version = "0.2.0"
+version = "0.2.1"
 description = "A private, shared movie and TV watch tracker"
 authors = ["Next Up contributors"]
 edition = "2021"

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 - Friend beta
+
+- Simplified installers to one file per OS (NSIS on Windows, DMG on macOS).
+- Added INSTALL-FOR-FRIENDS.md with SmartScreen / Gatekeeper install steps.
+- Tagged releases now publish automatically (still marked prerelease).
+
 ## 0.2.0 - Public beta
 
 - Added a Windows/macOS Tauri application with local migration and OS credential storage.
