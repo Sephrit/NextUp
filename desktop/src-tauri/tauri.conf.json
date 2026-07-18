@@ -26,7 +26,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["nsis", "dmg"],
     "category": "Entertainment",
     "shortDescription": "A private shared watch tracker",
     "longDescription": "Track movies, series, sessions, ratings, collections, and your personal Moviedex.",

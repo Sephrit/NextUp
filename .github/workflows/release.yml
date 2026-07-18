@@ -65,5 +65,5 @@ jobs:
           tagName: ${{ github.ref_name }}
           releaseName: Next Up ${{ github.ref_name }}
           releaseBody: See CHANGELOG.md. The macOS beta is ad-hoc signed but not notarized, and the Windows beta is unsigned; review the platform testing guide before installing.
-          releaseDraft: true
+          releaseDraft: false
           prerelease: true
