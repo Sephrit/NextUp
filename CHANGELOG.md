@@ -1,9 +1,9 @@
 # Changelog
 
-## 0.2.1 - Friend beta
+## 0.2.1
 
 - Simplified installers to one file per OS (NSIS on Windows, DMG on macOS).
-- Added INSTALL-FOR-FRIENDS.md with SmartScreen / Gatekeeper install steps.
+- Added a getting-started guide with screenshots and add-a-title examples.
 - Tagged releases now publish automatically (still marked prerelease).
 
 ## 0.2.0 - Public beta

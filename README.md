@@ -25,12 +25,11 @@ cloud server, analytics, or AI.
 - Offers a separate, optional local MCP package for Codex, Claude, Hermes,
   OpenClaw, and other compatible assistants
 
-## Install for normal users
+## Installing
 
-Download the Windows or macOS installer from the repository's **Releases** page.
-Pre-release friend builds are also available as artifacts from the **Build desktop
-installers** GitHub Actions workflow. See [Windows testing](docs/WINDOWS_TESTING.md)
-for the exact handoff steps and unsigned-app warnings.
+Download the Windows or macOS installer from the repository's **Releases** page, then
+follow the [getting-started guide](desktop/GETTING-STARTED.md) — it walks through
+installation, adding your first movies and shows, and every setting, with screenshots.
 
 No developer tools, Watchmode key, or AI setup are required after installation.
 
