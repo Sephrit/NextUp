@@ -43,11 +43,11 @@ jobs:
           workspaces: desktop/src-tauri
       - run: npm ci
         working-directory: desktop
-      - name: Build friend-test installer
+      - name: Build test installer
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         run: npm run desktop:build -- ${{ matrix.tauriArgs }}
         working-directory: desktop
-      - name: Upload friend-test artifact
+      - name: Upload test artifact
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         uses: actions/upload-artifact@v4
         with:
