@@ -8,22 +8,43 @@ cloud server, analytics, or AI.
 > The cross-platform Tauri app is the public beta. The original SwiftUI macOS
 > app remains in this repository while feature parity and migration are tested.
 
-## What it does
+![Next Up on the desktop](desktop/docs/images/library.png)
 
-- Tracks movies, movie series, shows, episodes, partial sessions, and rewatches
-- Imports a show's announced seasons and episodes from TVmaze in one step, with
-  large full-row season expanders
-- Keeps separate half-star ratings, short reviews, favorites, and “rewatch?” votes
-- Supports one to twelve profiles with optional sealed group ratings
-- Builds a permanent watch timeline, genre view, progress stats, and Moviedex achievements
-- Sorts and filters the sidebar by watching, next up, unwatched, watched, title,
-  progress, public rating, or recent activity
-- Shows saved watch links only for the services a household selects
-- Imports movie artwork, runtime, genres, scores, and US availability from an
-  optional Watchmode key
-- Exports and restores portable JSON backups
-- Offers a separate, optional local MCP package for Codex, Claude, Hermes,
-  OpenClaw, and other compatible assistants
+## What do we watch tonight?
+
+Next Up is built around that one question, and its best features come back to answering it:
+
+- **See how long you've got left.** Every series and set shows the runtime remaining to
+  finish it — "2h 24m remaining" right in the header — so you don't start a three-hour
+  movie when it's already late.
+- **Keep what's next in front of you.** Pin titles as *Watching* or *Next Up* and they
+  rise to the top of the sidebar; the thing you're mid-way through is always the first
+  thing you see.
+- **Watchable** filters your unwatched list down to what's actually streaming tonight on
+  the services you pay for.
+- **Sealed group ratings** let everyone score in secret, revealed only once the last
+  person votes — so no one's score sways the room.
+- **The Moviedex** turns your library into a collection to fill: you level up as you
+  finish titles, completed sets become trophies, and there are badges for milestones.
+
+New here? The [getting-started guide](desktop/GETTING-STARTED.md) walks through all of it
+with screenshots.
+
+## Everything it tracks
+
+- Movies, movie series, shows, episodes, partial sessions, and rewatches
+- One-step TVmaze import of a show's announced seasons and episodes, with large
+  full-row season expanders
+- Separate half-star ratings, short reviews, favorites, and “rewatch?” votes
+- One to twelve profiles with optional sealed group ratings
+- A permanent watch timeline, genre view, progress stats, and Moviedex achievements
+- Sidebar sort and filter by watching, next up, unwatched, watched, title, progress,
+  public rating, or recent activity
+- Saved watch links only for the services a household selects
+- Optional Watchmode enrichment: movie artwork, runtime, genres, scores, and US availability
+- Portable JSON export and restore
+- A separate, optional local MCP package for Codex, Claude, Hermes, OpenClaw, and other
+  compatible assistants
 
 ## Installing
 
