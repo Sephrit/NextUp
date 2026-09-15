@@ -128,7 +128,7 @@ const tools = [
     first: stringProp("Legacy first profile name"), second: stringProp("Legacy second profile name")
   }),
   tool("set_streaming_services", "Set the streaming services currently available to the household.", {
-    services: { type: "array", uniqueItems: true, items: { type: "string", enum: ["Disney+", "Prime Video", "Peacock", "Paramount+", "Netflix", "Hulu", "Max", "Apple TV+", "Crunchyroll", "AMC+", "STARZ", "MGM+", "Shudder", "BritBox", "The Criterion Channel", "Tubi", "The Roku Channel", "Pluto TV", "Plex", "Kanopy", "Hoopla"] } }
+    services: { type: "array", minItems: 1, uniqueItems: true, items: { type: "string", minLength: 1, enum: ["Disney+", "Prime Video", "Peacock", "Paramount+", "Netflix", "Hulu", "Max", "Apple TV+", "Crunchyroll", "AMC+", "STARZ", "MGM+", "Shudder", "BritBox", "The Criterion Channel", "Tubi", "The Roku Channel", "Pluto TV", "Plex", "Kanopy", "Hoopla"] } }
   }, ["services"]),
   tool("what_is_watchable", "List unwatched library items with confirmed links on the household's selected streaming services.", {
     includeWatched: { type: "boolean" }, provider: stringProp("Optional selected provider name")
@@ -746,7 +746,9 @@ async function callTool(name, args = {}) {
     library.profiles = names; library.setupComplete = true; return { profiles: names };
   });
   if (name === "set_streaming_services") return mutate("Updated streaming services", library => {
-    library.subscribedProviders = [...new Set(args.services)]; library.setupComplete = true;
+    const services = (Array.isArray(args.services) ? args.services : []).map(service => String(service).trim()).filter(Boolean);
+    if (!services.length) throw new Error("Provide one or more streaming service names.");
+    library.subscribedProviders = [...new Set(services)]; library.setupComplete = true;
     return { streamingServices: library.subscribedProviders };
   });
   if (name === "what_is_watchable") {
