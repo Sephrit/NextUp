@@ -792,7 +792,21 @@ input.on("line", async line => {
     if (message.method === "tools/list") return response(message.id, { tools });
     if (message.method === "tools/call") {
       const result = await callTool(message.params?.name, message.params?.arguments || {});
-      return response(message.id, { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], structuredContent: result });
+      // structuredContent has to be a JSON object, so a tool that returns a bare
+      // array — list_collections, search_library, what_is_watchable and
+      // recent_activity all do — cannot put its value there directly: a
+      // validating client rejects the whole call with "expected: record" and the
+      // model never sees the data. The text content stays exactly as it was, so
+      // anything reading the JSON text is unaffected; only an array (or a
+      // non-object) is boxed, and every object result is passed through
+      // untouched. The box is applied here, at the one point every tool result
+      // passes through, rather than at those four call sites, so a tool that
+      // starts returning an array later is covered without anyone remembering to
+      // name its key.
+      const structured = (result && typeof result === "object" && !Array.isArray(result))
+        ? result
+        : { result };
+      return response(message.id, { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], structuredContent: structured });
     }
     errorResponse(message.id, new Error(`Method not found: ${message.method}`));
   } catch (error) { errorResponse(message.id, error); }
