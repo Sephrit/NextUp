@@ -31,7 +31,14 @@ function request(method, params = {}) {
     waiting.set(id, message => { clearTimeout(timeout); message.error ? reject(new Error(message.error.message)) : resolve(message.result); });
   });
 }
-function call(name, args = {}) { return request("tools/call", { name, arguments: args }).then(result => result.structuredContent); }
+function call(name, args = {}) {
+  return request("tools/call", { name, arguments: args }).then(result => {
+    const content = result.structuredContent;
+    // Array results are boxed as { result } so structuredContent stays an object.
+    if (content && Array.isArray(content.result) && Object.keys(content).length === 1) return content.result;
+    return content;
+  });
+}
 
 try {
   const initialized = await request("initialize", { clientInfo: { name: "automated-smoke", version: "1" } });
@@ -43,6 +50,14 @@ try {
   assert.ok(listed.tools.some(tool => tool.name === "refresh_movie_metadata"));
   assert.ok(listed.tools.some(tool => tool.name === "get_watch_history"));
   assert.ok(listed.tools.some(tool => tool.name === "set_queue_status"));
+
+  const libraryFile = path.join(folder, "library.json");
+  const beforeEmptySearch = fs.readFileSync(libraryFile, "utf8");
+  await assert.rejects(() => call("search_library", {}), /query/);
+  assert.equal(fs.readFileSync(libraryFile, "utf8"), beforeEmptySearch);
+  await assert.rejects(() => call("set_streaming_services", {}), /services/);
+  assert.deepEqual(JSON.parse(fs.readFileSync(libraryFile, "utf8")).subscribedProviders, ["Disney+"]);
+  assert.equal((await call("search_library", { query: "Test" }))[0].title, "Test Movie");
 
   assert.equal((await call("what_is_watchable"))[0].items[0].title, "Test Movie");
   assert.equal((await call("set_queue_status", { item: "movie", status: "nextUp" })).queueStatus, "nextUp");
@@ -72,6 +87,7 @@ try {
 
   await assert.rejects(() => call("attach_provider_link", { item: "movie", provider: "Bad", url: "file:///tmp/not-streaming" }), /http/);
   await assert.rejects(() => call("submit_rating", { item: "movie", person: "A", stars: 4.2 }), /half-star/);
+  assert.deepEqual((await call("set_streaming_services", { services: ["Netflix"] })).streamingServices, ["Netflix"]);
   process.stdout.write("MCP smoke test passed\n");
 } finally {
   server.kill();

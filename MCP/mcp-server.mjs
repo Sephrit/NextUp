@@ -469,6 +469,12 @@ function collectionView(library, collection, orderValue, includeItems = true) {
 }
 
 async function callTool(name, args = {}) {
+  const definition = tools.find(entry => entry.name === name);
+  const required = definition?.inputSchema?.required;
+  if (Array.isArray(required)) {
+    const missing = required.filter(field => args?.[field] === undefined || args?.[field] === null);
+    if (missing.length) throw new Error(`Missing required ${missing.length === 1 ? "argument" : "arguments"}: ${missing.join(", ")}.`);
+  }
   if (name === "next_up_summary") {
     const library = readLibrary();
     const watchedItemIds = new Set(library.watchEvents.map(event => event.itemID));
