@@ -60,7 +60,25 @@ try {
   assert.equal((await call("search_library", { query: "Test" }))[0].title, "Test Movie");
 
   assert.equal((await call("what_is_watchable"))[0].items[0].title, "Test Movie");
+
+  // A rejected write must leave both the library and its undo point untouched.
+  const backupFile = path.join(folder, "library.backup.json");
+  const beforeFirstRejection = fs.readFileSync(libraryFile, "utf8");
+  await assert.rejects(() => call("set_queue_status", { item: "no-such-item", status: "nextUp" }), /Item not found/);
+  assert.equal(fs.readFileSync(libraryFile, "utf8"), beforeFirstRejection);
+  assert.equal(fs.existsSync(backupFile), false, "a rejected first write must not create a backup");
+
   assert.equal((await call("set_queue_status", { item: "movie", status: "nextUp" })).queueStatus, "nextUp");
+  const undoPoint = fs.readFileSync(backupFile, "utf8");
+  assert.equal(undoPoint, beforeFirstRejection, "a successful write backs up the library as it was before the write");
+  const afterPin = fs.readFileSync(libraryFile, "utf8");
+  await assert.rejects(() => call("set_queue_status", { item: "no-such-item", status: "none" }), /Item not found/);
+  assert.equal(fs.readFileSync(libraryFile, "utf8"), afterPin, "a rejected write leaves the library as it was");
+  assert.equal(fs.readFileSync(backupFile, "utf8"), undoPoint, "a rejected write leaves the undo point as it was");
+  await call("undo_last_change");
+  assert.equal(fs.readFileSync(libraryFile, "utf8"), beforeFirstRejection, "undo after a rejected write still reverts the last real change");
+  await call("undo_last_change");
+  assert.equal(fs.readFileSync(libraryFile, "utf8"), afterPin, "a second undo redoes it");
   assert.equal((await call("get_collection", { collection: "Queue" })).queueStatus, "nextUp");
   await call("log_watch", { item: "movie" });
   assert.equal((await call("get_collection", { collection: "Queue" })).completed, true);

@@ -185,20 +185,29 @@ function acquireLock() {
   throw new Error("Next Up library is busy. Retry in a moment.");
 }
 
+// Validate, then back up, then write. `change` runs on an in-memory copy and
+// throws to reject the call, so nothing on disk moves until it has succeeded:
+// a rejected or failed change leaves library.json and the undo point
+// (library.backup.json) exactly as they were.
 function mutate(action, change) {
   acquireLock();
+  const temporary = `${libraryPath}.${process.pid}.tmp`;
+  const backupTemporary = `${backupPath}.${process.pid}.tmp`;
   try {
     const library = readLibrary();
-    fs.copyFileSync(libraryPath, backupPath);
+    const original = fs.readFileSync(libraryPath);
     const result = change(library);
     library.auditLog ||= [];
     library.auditLog.push({ id: id(), timestamp: now(), source: clientName, action });
     if (library.auditLog.length > 250) library.auditLog = library.auditLog.slice(-250);
-    const temporary = `${libraryPath}.${process.pid}.tmp`;
     fs.writeFileSync(temporary, JSON.stringify(library, null, 2));
+    fs.writeFileSync(backupTemporary, original);
+    fs.renameSync(backupTemporary, backupPath);
     fs.renameSync(temporary, libraryPath);
     return result;
   } finally {
+    fs.rmSync(temporary, { force: true });
+    fs.rmSync(backupTemporary, { force: true });
     fs.rmSync(lockPath, { recursive: true, force: true });
   }
 }
