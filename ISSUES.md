@@ -3,7 +3,7 @@
 ## Open
 
 ### 3. The deployed MCP server is two fixes behind the repo, so a rejected write can still wipe the live undo point
-*Found 2026-11-18 · severity: high · area: deployment of MCP/mcp-server.mjs to ~/Library/Application Support/Next Up/ · commit: ed5356b · by: claude-opus-5.5*
+*Found 2026-11-18 · severity: high · area: deployment of MCP/mcp-server.mjs to ~/Library/Application Support/Next Up/ · commit: ed5356b · by: claude-opus-5-5*
 
 The copy that agents actually run, `~/Library/Application Support/Next Up/mcp-server.mjs` (placed there by `scripts/install.sh`), is not the repo copy. Its SHA-256 matches `MCP/mcp-server.mjs` at commit 3dfb808 exactly, so it lacks 7007e8e (reject a call that leaves out a required argument) and ed5356b (validate before backing up). The second one matters most: in the deployed copy `mutate()` still copies `library.json` over `library.backup.json` at line 192 before the change is validated, so any rejected write (for example `set_queue_status` with an unknown item) replaces the only undo point with the current state, and the next `undo_last_change` undoes nothing.
 
